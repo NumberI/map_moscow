@@ -6,7 +6,15 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    '//desk-customers.s3.amazonaws.com/v10/css/bootstrap.min.css' %>
+    <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUbSLBcIDugvZQS5LNzwUl28NUuReN2wI&callback=initMap" async defer></script>
+
+
+    <!-- # {ENV['GOOGLE_MAP_KEY']}"  -->
   </head>
 
   <body>
