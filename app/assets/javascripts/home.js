@@ -15,6 +15,21 @@ function initMap() {
         data : { data_value: JSON.stringify(coords) }
     });
 
+    $.ajax({
+	    url: '/map_center',
+	    dataType: 'json',
+	    success: function(data) {
+	    	console.log(data[0]);
+	    	for (var i = 0; i < data.data.length; i++) {
+			    var coords = data[i].other.coordinates;
+			    var latLng = new google.maps.LatLng(coords[1],coords[0]);
+	  		}
+	    },
+	    	error: function() {
+	      alert('error');
+	    }
+  	});
+
     // var origin1 = {lat: 55.747127, lng: 37.626005};
 		// var destinationB = {lat: coords.lat(), lng: coords.lng()};
 
