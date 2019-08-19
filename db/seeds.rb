@@ -5,3 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'json'
+
+file = File.read("public/data.json")
+data_hash = JSON.parse(file)
+
+50.times do 
+	nomer = rand(0...data_hash.length)
+	latitude = data_hash[nomer]['geoData']['center'][0][0]
+	longitude = data_hash[nomer]['geoData']['center'][0][1]
+	city = data_hash[nomer]['P1']
+	street = data_hash[nomer]['P7']
+	dom = data_hash[nomer]['L1_VALUE']
+	Address.find_or_create_by(city: city, street: street, dom: dom, latitude: latitude, longitude: longitude)
+end

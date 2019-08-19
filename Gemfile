@@ -11,6 +11,7 @@ gem 'slim'
 gem "geocoder"
 gem "responders"
 gem 'fias'
+gem 'json'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
