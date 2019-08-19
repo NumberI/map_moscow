@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   post 'map_center' => 'home#map_center'
-  get 'map_center' => 'home#show'
+  get 'show' => 'home#show'
   get 'map_json' => 'map#map_json'
   get 'home/index'
   get '/' => 'home#index'

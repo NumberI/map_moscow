@@ -12,8 +12,8 @@ data_hash = JSON.parse(file)
 
 50.times do 
 	nomer = rand(0...data_hash.length)
-	latitude = data_hash[nomer]['geoData']['center'][0][0]
-	longitude = data_hash[nomer]['geoData']['center'][0][1]
+	latitude = data_hash[nomer]['geoData']['center'][0][1]
+	longitude = data_hash[nomer]['geoData']['center'][0][0]
 	city = data_hash[nomer]['P1']
 	street = data_hash[nomer]['P7']
 	dom = data_hash[nomer]['L1_VALUE']

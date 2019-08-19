@@ -8,43 +8,44 @@ function initMap() {
 
 	map.addListener('click', function(e) {
     var coords = e.latLng
+	console.log(JSON.stringify(coords));
     $.ajax({
         url : "/map_center",
         type : "post",
         data : { data_value: JSON.stringify(coords) }
     });
-    console.log(e.latLng.lat());
-    var origin1 = {lat: 55.747127, lng: 37.626005};
-		var destinationB = {lat: coords.lat(), lng: coords.lng()};
 
-		var service = new google.maps.DistanceMatrixService();
-		service.getDistanceMatrix(
-	  {
-	    origins: [origin1],
-	    destinations: [destinationB],
-	    travelMode: 'WALKING',
-	  }, callback);
+    // var origin1 = {lat: 55.747127, lng: 37.626005};
+		// var destinationB = {lat: coords.lat(), lng: coords.lng()};
 
-		function callback(response, status) {
-			if (status == 'OK') {
-		    var origins = response.originAddresses;
-		    var destinations = response.destinationAddresses;
+		// var service = new google.maps.DistanceMatrixService();
+		// service.getDistanceMatrix(
+	  // {
+	    // origins: [origin1],
+	    // destinations: [destinationB],
+	    // travelMode: 'WALKING',
+	  // }, callback);
 
-		    for (var i = 0; i < origins.length; i++) {
-		      var results = response.rows[i].elements;
-		      for (var j = 0; j < results.length; j++) {
-		        var element = results[j];
-		        var distance = element.distance.text;
-		        var duration = element.duration.text;
-		        console.log(distance)
-		      }
-		    }
-		  }
+		// function callback(response, status) {
+			// if (status == 'OK') {
+		    // var origins = response.originAddresses;
+		    // var destinations = response.destinationAddresses;
+
+		    // for (var i = 0; i < origins.length; i++) {
+		      // var results = response.rows[i].elements;
+		      // for (var j = 0; j < results.length; j++) {
+		        // var element = results[j];
+		        // var distance = element.distance.text;
+		        // var duration = element.duration.text;
+		        // console.log(distance)
+		      // }
+		    // }
+		  // }
 
 
 				  // See Parsing the Results for
 				  // the basics of a callback function.
-		}
+		// }
   });
 
 
