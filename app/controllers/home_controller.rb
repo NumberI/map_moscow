@@ -3,19 +3,19 @@ before_action :verify_request_type, :get_coord
 
   def map_center
   	case request.method_symbol
-	when :post
-		@@center = params[:data_value]
-	when :get
-		
-		@cen = []
-	  @cen << @center.split(',')[0].split(':')[1].to_f << @center.split(',')[1].split(':')[1].gsub('}','').to_f
-		@town = Address.near([@cen[0],@cen[1]], 4, units: :km).order(:distance)
-		@town = ActiveSupport::JSON.encode(@town)
-		respond_to do |format|
-			format.json { render json: @town }
-		end
+			when :post
+				@@center = params[:data_value]
+			when :get
+				
+				@cen = []
+			  @cen << @center.split(',')[0].split(':')[1].to_f << @center.split(',')[1].split(':')[1].gsub('}','').to_f
+				@town = Address.near([@cen[0],@cen[1]], 4, units: :km).order(:distance)
+				@town = ActiveSupport::JSON.encode(@town)
+				respond_to do |format|
+					format.json { render json: @center }
+				end
 
-	end	
+		end	
 
   end
 
