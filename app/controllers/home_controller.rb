@@ -6,8 +6,9 @@ before_action :verify_request_type
 	when :post
 		@@center = params[:data_value]
 	when :get
+		get_coord
 		@cen = []
-	  	@cen << @@center.split(',')[0].split(':')[1].to_f << @@center.split(',')[1].split(':')[1].gsub('}','').to_f
+	  @cen << @center.split(',')[0].split(':')[1].to_f << @center.split(',')[1].split(':')[1].gsub('}','').to_f
 		@town = Address.near([@cen[0],@cen[1]], 4, units: :km).order(:distance)
 		@town = ActiveSupport::JSON.encode(@town)
 		respond_to do |format|
@@ -32,5 +33,8 @@ before_action :verify_request_type
 
 	def allowed_methods
 	  %i(get post)
+	end
+	def get_coord
+		@center = params[:data_value]
 	end
 end
