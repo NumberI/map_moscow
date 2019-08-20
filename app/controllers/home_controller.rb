@@ -12,7 +12,7 @@ before_action :verify_request_type
 				@town = Address.near([@cen[0],@cen[1]], 4, units: :km).order(:distance)
 				@town = ActiveSupport::JSON.encode(@town)
 				respond_to do |format|
-					format.json { render json: @center }
+					format.json { render json: @town }
 				end
 
 		end	
