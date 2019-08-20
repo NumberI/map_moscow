@@ -1,12 +1,12 @@
 class HomeController < ApplicationController
-before_action :verify_request_type
+before_action :verify_request_type, :get_coord
 
   def map_center
   	case request.method_symbol
 	when :post
 		@@center = params[:data_value]
 	when :get
-		get_coord
+		
 		@cen = []
 	  @cen << @center.split(',')[0].split(':')[1].to_f << @center.split(',')[1].split(':')[1].gsub('}','').to_f
 		@town = Address.near([@cen[0],@cen[1]], 4, units: :km).order(:distance)
