@@ -7,7 +7,7 @@ ruby '2.6.3'
 gem 'rails', '~> 5.2.3'
 
 gem 'slim'
-gem "geocoder"
+# gem "geocoder"
 gem "responders"
 gem 'json'
 gem 'pg'
@@ -50,7 +50,6 @@ group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
 end
 
 group :test do

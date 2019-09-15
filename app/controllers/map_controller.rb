@@ -9,11 +9,10 @@ class MapController < ApplicationController
 
     @buildings.each do |building|
       @data["data"] << {
-        "id": rand(500),
-        "dealer_data":{
-          "dealer_logo": "",
-          "dealer_email": "",
-        },
+        "title": building.city + "," + building.street + "," + building.dom.to_s,
+        "city": building.city,
+        "street": building.street,
+        "dom": building.dom,
         "other":{
           "coordinates": [building.latitude, building.longitude]
         }

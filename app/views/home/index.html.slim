@@ -1,4 +1,3 @@
-/! Main Page Content -
 #panel-row.row
   #map-canvas
 	  #panel
@@ -7,5 +6,90 @@
 .table
 
 
-/! // Main Page Content
-/! // page-wrapper
+javascript:
+  DG.then(function() {
+    var map,
+    markers = DG.featureGroup();
+
+    map = DG.map('map', {
+      'center': [55.747127, 37.626005],
+      'zoom': 13
+    });
+    map.on('click', function(ev) {
+      markers.removeFrom(map);
+      markers = DG.featureGroup();
+      
+      $.ajax({
+        url: '/map_json',
+        dataType: 'json',
+        success: function(data) {
+          for (var i = 0; i < data.data.length; i++) {
+            var coords = data.data[i].other.coordinates;
+            var dist = map.distance([coords[0],coords[1]],ev.latlng);
+            if (dist < 3000){
+              DG.marker([coords[0],coords[1]],{title: data.data[i].title, alt: dist}).addTo(markers);
+            };
+            
+          }
+          markers.addTo(map);
+          var arr = [];
+          // markers.sort(function(a, b){ return a._layers.alt-b._layers.alt})
+          $.each(markers._layers, function(index, value) {
+            arr.push(value.options);
+          });
+          arr.sort(function(a, b){ return a.alt-b.alt}) 
+
+          var tbl_delete = document.getElementById("table1");
+          if(tbl_delete) tbl_delete.parentNode.removeChild(tbl_delete);
+          if (Object.keys(markers._layers).length == 0){
+            alert('Зданий поблизости не найдено')
+          } else {
+
+            var place = document.getElementsByClassName('table')[0];
+            var tbl = document.createElement('table');
+            tbl.style.width = '100%';
+            tbl.setAttribute('border', '1');
+            var tbdy = document.createElement('tbody');
+
+            var tr = document.createElement('tr');
+            var td = document.createElement('td');
+            td.appendChild(document.createTextNode("City"));
+            tr.appendChild(td);
+            var td = document.createElement('td');
+            td.appendChild(document.createTextNode("Street"));
+            tr.appendChild(td);
+            var td = document.createElement('td');
+            td.appendChild(document.createTextNode("Dom"));
+            tr.appendChild(td);
+            var td = document.createElement('td');
+            td.appendChild(document.createTextNode("Distance"));
+            tr.appendChild(td);
+            tbdy.appendChild(tr);
+
+            for (var i = 0; i < arr.length; i++) {
+              var tr = document.createElement('tr');
+              var address =  arr[i].title.split(",");
+              for (var j = 0; j < address.length; j++){
+                console.log(address[0]);
+                var td = document.createElement('td');
+                td.appendChild(document.createTextNode(address[j]));
+                tr.appendChild(td);
+              }
+              var td = document.createElement('td');
+              td.appendChild(document.createTextNode(arr[i].alt));
+              tr.appendChild(td);
+              tbdy.appendChild(tr);
+            }
+            tbl.appendChild(tbdy);
+            place.appendChild(tbl);
+            tbl.setAttribute("id", "table1");
+          };
+        },
+        error: function() {
+          alert('error');
+        }
+      });
+    });
+
+  });
+  
