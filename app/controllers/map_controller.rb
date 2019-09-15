@@ -8,8 +8,13 @@ class MapController < ApplicationController
     @data["data"] = []
 
     @buildings.each do |building|
+      if building.street.nil?
+        title = building.city + ", ," + building.dom.to_s
+      else
+        title = building.city + "," + building.street + "," + building.dom.to_s
+      end
       @data["data"] << {
-        "title": building.city + "," + building.street + "," + building.dom.to_s,
+        "title": title,
         "city": building.city,
         "street": building.street,
         "dom": building.dom,

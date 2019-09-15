@@ -33,7 +33,7 @@ javascript:
           }
           markers.addTo(map);
           var arr = [];
-          // markers.sort(function(a, b){ return a._layers.alt-b._layers.alt})
+
           $.each(markers._layers, function(index, value) {
             arr.push(value.options);
           });
@@ -47,7 +47,7 @@ javascript:
 
             var place = document.getElementsByClassName('table')[0];
             var tbl = document.createElement('table');
-            tbl.style.width = '100%';
+            tbl.style.width = '95%';
             tbl.setAttribute('border', '1');
             var tbdy = document.createElement('tbody');
 
@@ -70,7 +70,6 @@ javascript:
               var tr = document.createElement('tr');
               var address =  arr[i].title.split(",");
               for (var j = 0; j < address.length; j++){
-                console.log(address[0]);
                 var td = document.createElement('td');
                 td.appendChild(document.createTextNode(address[j]));
                 tr.appendChild(td);
